@@ -1,0 +1,38 @@
+{
+  "name": "file-arranger",
+  "version": "1.0.0",
+  "main": "./bin/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dethMastery/file-arranger"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "pkg": "^5.8.1"
+  },
+  "scripts": {
+    "dev": "node ./bin/cli.js",
+    "build": "pkg ."
+  },
+  "bin": {
+    "d-mark": "./bin/cli.js"
+  },
+  "pkg": {
+    "scripts": "bin/**/*.js",
+    "targets": [
+      "node18-macos-arm64",
+      "node18-windows-arm64",
+      "node18-linux-arm64",
+      "node18-macos-x64",
+      "node18-windows-x64",
+      "node18-linux-x64"
+    ],
+    "options": [
+      "experimental-modules"
+    ],
+    "outputPath": "dist"
+  }
+}
