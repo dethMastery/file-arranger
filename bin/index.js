@@ -1,7 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 
-const renameCB = require('./callback')
+const { renameCB, bulkRenameCB } = require('./callback')
+const { redBan, logReset, greenSuccess } = require('./color')
 
 function mainArrange(filePath) {
   const list = fs.readdirSync(filePath)
@@ -28,9 +29,46 @@ function mainArrange(filePath) {
           }
         }
       } else {
+        console.log(`${redBan}Error: There's no files here.${logReset}`)
       }
     }
   }
 }
 
-module.exports = mainArrange
+function bulkRename(folderPath, name) {
+  const list = fs.readdirSync(folderPath)
+
+  if (list.length > 0) {
+    let count = 1
+    for (let i = 0; i < list.length; i++) {
+      if (list[i] != '.DS_Store') {
+        let slug = ''
+
+        if (String(count).length == 1) {
+          slug = `00${count}`
+        } else if (String(count).length == 2) {
+          slug = `0${count}`
+        } else {
+          slug = `${count}`
+        }
+
+        let ext = list[i].split('.').pop()
+        let fileName = `${name}-${slug}.${ext}`
+
+        fs.rename(
+          path.join(folderPath, list[i]),
+          path.join(folderPath, fileName),
+          (err) => {
+            bulkRenameCB(list[i], fileName, err)
+          }
+        )
+
+        count++
+      }
+    }
+  } else {
+    console.log(`${redBan}Error: There's no files here.${logReset}`)
+  }
+}
+
+module.exports = { mainArrange, bulkRename }

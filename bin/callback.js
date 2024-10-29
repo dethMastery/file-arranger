@@ -1,9 +1,15 @@
-const { greenSuccess } = require('./color')
+const { greenSuccess, logReset } = require('./color')
 
 function renameCB(filename, err) {
   if (err) throw err
 
-  console.log(`${greenSuccess}${filename} has been moved!`)
+  console.log(`${greenSuccess}${filename} has been moved!${logReset}`)
 }
 
-module.exports = renameCB
+function bulkRenameCB(oldName, newName, err) {
+  console.log(
+    `${greenSuccess}${oldName} has been renamed to ${newName} successfully!${logReset}`
+  )
+}
+
+module.exports = { renameCB, bulkRenameCB }
