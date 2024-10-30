@@ -24,8 +24,8 @@ const convert = opt.convert
 
 if (path != undefined) {
   if (name != undefined && convert == undefined) {
-    // bulkRename(path, name)
-    console.log('rename')
+    bulkRename(path, name)
+    // console.log('rename')
   } else if (name == undefined && convert != undefined) {
     bulkConvert(path, convert)
   } else {
