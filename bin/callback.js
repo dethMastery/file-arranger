@@ -7,9 +7,17 @@ function renameCB(filename, err) {
 }
 
 function bulkRenameCB(oldName, newName, err) {
+  if (err) throw err
+
   console.log(
     `${greenSuccess}${oldName} has been renamed to ${newName} successfully!${logReset}`
   )
 }
 
-module.exports = { renameCB, bulkRenameCB }
+function bulkConvertCB(oldName, newName) {
+  console.log(
+    `${greenSuccess}${oldName} has been converted to ${newName} successfully!${logReset}`
+  )
+}
+
+module.exports = { renameCB, bulkRenameCB, bulkConvertCB }

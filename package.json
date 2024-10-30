@@ -8,6 +8,7 @@
     "url": "https://github.com/dethMastery/file-arranger"
   },
   "dependencies": {
+    "fluent-ffmpeg": "^2.1.3",
     "fs": "^0.0.1-security",
     "os": "^0.1.2",
     "path": "^0.12.7",

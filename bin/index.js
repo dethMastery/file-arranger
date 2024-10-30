@@ -3,6 +3,7 @@ const path = require('path')
 
 const { renameCB, bulkRenameCB } = require('./callback')
 const { redBan, logReset, greenSuccess } = require('./color')
+const { convertImage } = require('./Modules/convert')
 
 function mainArrange(filePath) {
   const list = fs.readdirSync(filePath)
@@ -71,4 +72,26 @@ function bulkRename(folderPath, name) {
   }
 }
 
-module.exports = { mainArrange, bulkRename }
+function bulkConvert(folderPath, outFolder) {
+  const outDir =
+    outFolder != ''
+      ? `${path.join(folderPath, outFolder)}`
+      : `${path.join(folderPath, '/webp')}`
+
+  const list = fs.readdirSync(folderPath)
+
+  for (let i = 0; i < list.length; i++) {
+    if (list[i] != '.DS_Store') {
+      if (!fs.existsSync(outDir)) {
+        fs.mkdirSync(outDir)
+      }
+
+      convertImage(
+        path.join(folderPath, list[i]),
+        path.join(outDir, `${list[i].split('.')[0]}.webp`)
+      )
+    }
+  }
+}
+
+module.exports = { mainArrange, bulkRename, bulkConvert }
